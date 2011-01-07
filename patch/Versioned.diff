@@ -1,0 +1,49 @@
+diff -Nur silverstripe-v2.4.4/sapphire/core/model/Versioned.php silverstripe-v2.4.4-hack/sapphire/core/model/Versioned.php
+--- silverstripe-v2.4.4/sapphire/core/model/Versioned.php	2010-12-06 01:37:23.000000000 +0100
++++ silverstripe-v2.4.4-hack/sapphire/core/model/Versioned.php	2011-01-03 09:18:20.000000000 +0100
+@@ -519,6 +519,7 @@
+ 	 * @param createNewVersion Set this to true to create a new version number.  By default, the existing version number will be copied over.
+ 	 */
+ 	function publish($fromStage, $toStage, $createNewVersion = false) {
++		$this->owner->extend('onBeforeVersionedExtensionPublish', $fromStage, $toStage, $createNewVersion);
+ 		$baseClass = $this->owner->class;
+ 		while( ($p = get_parent_class($baseClass)) != "DataObject") $baseClass = $p;
+ 		$extTable = $this->extendWithSuffix($baseClass);
+@@ -557,6 +558,7 @@
+ 		} else {
+ 			user_error("Can't find {$this->owner->URLSegment}/{$this->owner->ID} in stage $fromStage", E_USER_WARNING);
+ 		}
++		$this->owner->extend('onAfterVersionedExtensionPublish', $fromStage, $toStage, $createNewVersion);
+ 	}
+ 	
+ 	/**
+@@ -839,6 +841,7 @@
+ 	}
+ 	
+ 	function deleteFromStage($stage) {
++		$this->owner->extend('onBeforeVersionedExtensionDeleteFromStage', $stage);
+ 		$oldMode = Versioned::get_reading_mode();
+ 		Versioned::reading_stage($stage);
+ 		$clone = clone $this->owner;
+@@ -848,7 +851,9 @@
+ 		// Fix the version number cache (in case you go delete from stage and then check ExistsOnLive)
+ 		$baseClass = ClassInfo::baseDataClass($this->owner->class);
+ 		self::$cache_versionnumber[$baseClass][$stage][$this->owner->ID] = null;
+-
++		
++		$this->owner->extend('onAfterVersionedExtensionDeleteFromStage', $stage, $result);
++		
+ 		return $result;
+ 	}
+ 	
+@@ -1023,6 +1028,10 @@
+ 	function cacheKeyComponent() {
+ 		return 'stage-'.self::current_stage();
+ 	}
++	
++	function getStages() {
++		return $this->stages;
++	}
+ }
+ 
+ /**

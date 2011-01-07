@@ -1,0 +1,9 @@
+
+<FilesMatch "\.(git|svn)">
+	Deny from all
+</FilesMatch>
+
+<FilesMatch "\.(php|php3|php4|php5|phtml|inc|sql)$">
+	Deny from all
+</FilesMatch>
+

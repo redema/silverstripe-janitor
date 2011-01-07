@@ -1,0 +1,9 @@
+
+DataObjectOnDeleteDecoratorTest_MasterPage:
+	Page1:
+		Title: MasterPage
+DataObjectOnDeleteDecoratorTest_SubPage:
+	Page2:
+		Title: SubPage
+		MasterPage: =>DataObjectOnDeleteDecoratorTest_MasterPage.Page1
+

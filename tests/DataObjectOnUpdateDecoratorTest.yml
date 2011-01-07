@@ -1,0 +1,13 @@
+DataObjectOnUpdateDecoratorTest_TestPage:
+	testpage1:
+		Title: TestPage1
+		URLSegment: testpage1
+
+DataObjectOnUpdateDecoratorTest_Test:
+	tester1:
+		Title: tester1
+		PageID: =>DataObjectOnUpdateDecoratorTest_TestPage.testpage1
+	tester2:
+		Title: tester2
+		PageID: =>DataObjectOnUpdateDecoratorTest_TestPage.testpage1
+
