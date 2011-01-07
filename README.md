@@ -17,6 +17,7 @@ DataObjects.
 ## Maintainer Contact
 
 Charden Reklam (charden) <http://charden.se/>
+
 Author: Erik Edlund <erik@charden.se>
 
 ## Requirements
@@ -30,8 +31,10 @@ Author: Erik Edlund <erik@charden.se>
 
 The only currently available documentation is the doctags available in the
 module. Take a look at
+
  * _config.php
  * code/DataObjectOnDeleteDecorator.php
+
 to get started. _config.php contains some default settings which should
 probably be looked over before the module is used. These defaults also serves
 as examples.
