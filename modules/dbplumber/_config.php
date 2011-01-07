@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @copyright Copyright 2010 Charden Reklam Östersund AB (http://charden.se/)
- * @author Erik Edlund <erik@charden.se>
+ * Copyright 2010 Charden Reklam Östersund AB (http://charden.se/)
+ * Erik Edlund <erik@charden.se>
  * 
  * Redistribution and use in source and binary forms, with or without modification,
  * are permitted provided that the following conditions are met:
