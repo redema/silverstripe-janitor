@@ -72,9 +72,7 @@ Please refer to the doctag documentation.
    
    $ patch -p1 < janitor/patch/Versioned.diff
    
-   and you are good to go. This patch will also add some extend() calls to
-   Versioned which allows DataObjectOnUpdateDecorator to handle stages when
-   DataObjects are written.
+   and you are good to go.
 
 ## Third party modules
 

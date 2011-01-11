@@ -37,7 +37,6 @@ if (!method_exists('Versioned', 'getStages')) {
 }
 
 Object::add_extension('DataObject', 'DataObjectOnDeleteDecorator');
-Object::add_extension('DataObject', 'DataObjectOnUpdateDecorator');
 Object::add_extension('Member', 'JanitorMemberDecorator');
 
 JanitorMemberDecorator::add_psuedo_has_many('Janitor_MemberPasswords', 'MemberPassword');
