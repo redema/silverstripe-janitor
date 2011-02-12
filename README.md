@@ -27,18 +27,6 @@ Author: Erik Edlund <erik@charden.se>
    databases as well.
  * SilverStripe: 2.4.0 minimum (previous versions has never been tested).
 
-## Documentation
-
-The only currently available documentation is the doctags available in the
-module. Take a look at
-
- * _config.php
- * code/DataObjectOnDeleteDecorator.php
-
-to get started. _config.php contains some default settings which should
-probably be looked over before the module is used. These defaults also serves
-as examples.
-
 ## Installation Instructions
 
  * Place this directory in the root of your SilverStripe installation. Make sure
@@ -58,11 +46,66 @@ as examples.
 
 ## Usage Overview
 
-Please refer to the doctag documentation.
+If you have a has_many-has_one relation between two DataObjects
+
+    class Parent extends DataObject {
+        public static $has_many = array('Children' => 'Child');
+    }
+    
+    class Child extends DataObject {
+        public static $has_one = array('Parent' => 'Parent');
+        public static $has_one_on_delete = array('Parent' => 'delete');
+    }
+
+all Children for a Parent will be deleted when their Parent is deleted. By
+changing from "delete” to "set null” as the value for the "Parent” key in
+$has_one_on_delete ParentID would be set to 0 for all children when Parent is
+deleted instead.
+
+This is a rough equivalence for using foreign key referential actions in SQL:
+
+FOREIGN KEY(ParentID) REFERENCES Parent(ID) ON DELETE CASCADE
+
+The advantage of handling this through PHP and SilverStripes ORM as Janitor
+does, is that any cleanup code or restrictions in place for the DataObject being
+deleted is run.
+
+Janitor will also handle Versioned DataObjects in order to make sure that
+cleaning is only performed when the DataObject has been deleted from all stages
+and that cascading deletes handles all stages for Versioned DataObjects (the
+reason why Versioned must be patched in order to use Janitor).
+
+Another feature is that it cleans all tables in which the current DataObject
+could have saved data. If you change type of a DataObject and then delete it
+
+    $page = new RedirectorPage();
+    $page->write();
+    $page = $page->newClassInstance('VirtualPage');
+    $page->write();
+    $page->delete();
+
+the row left in RedirectorPage will be deleted.
+
+Combine the first example with the second
+
+    $obj = DataObject::get_one('Parent', ...); // Assume it has children.
+    $obj = $parent->newClassInstance('OtherObjectWithTheSameBaseClass');
+    $obj->write();
+    $obj->delete();
+
+and find that all Children for the parent are deleted.
+
+many_many-belong_many_many relations are also handled, references to deleted
+objects are simply deleted from the intermediate database table.
+
+More detailed documentation is available as source code comments in the module.
+_config.php and modules/*/_config.php contains some default settings which
+should probably be looked over before the module is used. These defaults also
+serves as usage examples.
 
 ## Known issues
 
- * In order to handle Versioned DataObjects janitor needs to determine which
+ * In order to handle Versioned DataObjects Janitor needs to determine which
    stages are available. There is however no way to determine this since the
    Versioned decorator does not provide a get function to access the stages
    it was initialized with. The best way to deal with this is to apply the

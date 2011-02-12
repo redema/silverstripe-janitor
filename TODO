@@ -1,8 +1,0 @@
-
- * TODO: Finish DataObjectOnUpdateDecorator.
- * TODO: Write documentation for DataObjectOnUpdateDecorator.
-
- * Whishlist: Tasks for handling renaming or deletion of DataObject classes.
- * Whishlist: Make sure that the table column order matches the order in
-              DataObject::$db.
-

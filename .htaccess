@@ -1,7 +1,7 @@
 
-<FilesMatch "\.(git|svn)">
-	Deny from all
-</FilesMatch>
+<IfModule mod_alias.c>
+	RedirectMatch 403 /\.(git|svn)(/|$)
+</IfModule>
 
 <FilesMatch "\.(php|php3|php4|php5|phtml|inc|sql)$">
 	Deny from all
