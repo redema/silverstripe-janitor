@@ -99,7 +99,7 @@ many_many-belong_many_many relations are also handled, references to deleted
 objects are simply deleted from the intermediate database table.
 
 More detailed documentation is available as source code comments in the module.
-_config.php and modules/*/_config.php contains some default settings which
+\_config.php and modules/\*/\_config.php contains some default settings which
 should probably be looked over before the module is used. These defaults also
 serves as usage examples.
 
