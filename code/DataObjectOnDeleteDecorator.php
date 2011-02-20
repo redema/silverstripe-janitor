@@ -391,6 +391,28 @@ class DataObjectOnDeleteDecorator extends DataObjectDecorator {
 		// here, they would in effect be useless.
 	}
 	
+	/**
+	 * Remove scaffolded fields for pseudo has_many/has_one
+	 * relations added by Janitor from the given FieldSet.
+	 * 
+	 * @param FieldSet $fields
+	 */
+	private function removePseudoRelationsFromFieldSet(FieldSet& $fields) {
+		$dataFields = $fields->dataFields();
+		if ($dataFields) foreach ($dataFields as $field) {
+			if (preg_match('/^__/', $field->Name()))
+				$fields->removeByName($field->Name());
+		}
+	}
+	
+	public function updateCMSFields(FieldSet& $fields) {
+		$this->removePseudoRelationsFromFieldSet($fields);
+	}
+	
+	public function updateFrontEndFields(FieldSet& $fields) {
+		$this->removePseudoRelationsFromFieldSet($fields);
+	}
+	
 }
 
 /**

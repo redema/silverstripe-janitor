@@ -37,10 +37,12 @@ if (!method_exists('Versioned', 'getStages')) {
 }
 
 Object::add_extension('DataObject', 'DataObjectOnDeleteDecorator');
-Object::add_extension('Member', 'JanitorMemberDecorator');
 
-JanitorMemberDecorator::add_psuedo_has_many('Janitor_MemberPasswords', 'MemberPassword');
-JanitorMemberDecorator::add_psuedo_has_many('Janitor_PageComments', 'PageComment');
+Object::add_static_var('Member', 'has_many', array(
+	'__Janitor_MemberPasswords' => 'MemberPassword',
+	'__Janitor_PageComments' => 'PageComment'
+));
+
 
 // Comments without an associated page can be removed since
 // their context is lost.
@@ -56,8 +58,8 @@ Object::add_static_var('MemberPassword', 'has_one_on_delete', array(
 
 // Complete the SiteTree <=> Group many_many relationship.
 Object::add_static_var('Group', 'belongs_many_many', array(
-	'Janitor_ViewerSiteTrees' => 'SiteTree',
-	'Janitor_EditorSiteTrees' => 'SiteTree'
+	'__Janitor_ViewerSiteTrees' => 'SiteTree',
+	'__Janitor_EditorSiteTrees' => 'SiteTree'
 ));
 
 // These intermediate tables must only be cleaned if the

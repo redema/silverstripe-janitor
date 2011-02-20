@@ -31,36 +31,16 @@
  */
 
 /**
- * Make sure that the JanitorMemberDecorator does not mess
- * with the SecurityAdmin GUI.
+ * Make sure that form fields are not scaffoled for pseudo
+ * has_many/has_one relations added by Janitor to perform
+ * cleaning.
  */
-class JanitorMemberDecoratorTest extends FunctionalTest {
+class JanitorMemberTest extends FunctionalTest {
 	
 	public function testFieldScaffoldingForMemberEditPopup() {
 		$member = DataObject::get_one('Member');
 		$this->assertType('Member', $member);
 		$this->logInAs($member);
-		$response = $this->get("admin/security/EditForm/field/Members/item/{$member->ID}/edit");
-		foreach (array('tab-Root_JanitorMemberPasswords', 'tab-Root_JanitorPageComments') as $HTMLID)
-			$this->assertFalse(stripos($response->getBody(), "id=\"{$HTMLID}\""),
-				"Found a tab with id \"{$HTMLID}\", it should not exist (under normal conditions) for a member FieldSet");
-	}
-	
-	public function testFieldScaffoldingForMemberEditPopupAfterDelete() {
-		// A very special and uncommon case, but test it anyway. It
-		// could happen when working with some sort of front-end
-		// member administration where one member is deleted through
-		// a controller action before a new member form is fetched.
-		$member = DataObject::get_one('Member');
-		$this->assertType('Member', $member);
-		$this->logInAs($member);
-		
-		$dispensableMember = new Member();
-		$dispensableMember->Email = 'john.doe@example.com';
-		$dispensableMember->Password = 'secret';
-		$dispensableMember->write();
-		$dispensableMember->delete();
-		
 		$response = $this->get("admin/security/EditForm/field/Members/item/{$member->ID}/edit");
 		foreach (array('tab-Root_JanitorMemberPasswords', 'tab-Root_JanitorPageComments') as $HTMLID)
 			$this->assertFalse(stripos($response->getBody(), "id=\"{$HTMLID}\""),

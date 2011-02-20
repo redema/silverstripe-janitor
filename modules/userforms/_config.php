@@ -33,12 +33,13 @@
 // Janitor configuration specific for SilverStripes user
 // forms module.
 
+Object::add_static_var('Member', 'has_many', array(
+	'__Userforms_SubmittedForms' => 'SubmittedForm'
+));
+
 Object::add_static_var('EditableFormField', 'has_one_on_delete', array(
 	'Parent' => 'delete'
 ));
-
-JanitorMemberDecorator::add_psuedo_has_many('Userforms_SubmittedForms',
-	'SubmittedForm');
 
 Object::add_static_var('SubmittedForm', 'has_one_on_delete', array(
 	'Parent' => 'delete',
