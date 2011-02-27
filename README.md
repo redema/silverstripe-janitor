@@ -64,7 +64,7 @@ deleted instead.
 
 This is a rough equivalence for using foreign key referential actions in SQL:
 
-FOREIGN KEY(ParentID) REFERENCES Parent(ID) ON DELETE CASCADE
+    FOREIGN KEY(ParentID) REFERENCES Parent(ID) ON DELETE CASCADE
 
 The advantage of handling this through PHP and SilverStripes ORM as Janitor
 does, is that any cleanup code or restrictions in place for the DataObject being
