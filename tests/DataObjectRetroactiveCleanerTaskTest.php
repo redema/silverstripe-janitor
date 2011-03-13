@@ -56,7 +56,7 @@ class DataObjectRetroactiveCleanerTaskTest extends SapphireTest {
 		$page = $page->newClassInstance('RedirectorPage');
 		$page->write();
 		$page = DataObject::get_by_id('RedirectorPage', $pageID);
-		$this->assertTrue((bool)$page);
+		$this->assertInstanceOf('RedirectorPage', $page);
 		
 		$page->delete();
 		

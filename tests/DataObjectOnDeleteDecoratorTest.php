@@ -162,7 +162,7 @@ class DataObjectOnDeleteDecoratorTest extends SapphireTest {
 		$author->delete();
 		
 		$comment = DataObject::get_by_id('PageComment', $commentID);
-		$this->assertType('PageComment', $comment);
+		$this->assertInstanceOf('PageComment', $comment);
 		$this->assertFalse((bool)$comment->AuthorID,
 			"PageComment AuthorID not set to null when the author was deleted");
 	}
@@ -257,7 +257,7 @@ class DataObjectOnDeleteDecoratorTest extends SapphireTest {
 		$page = $page->newClassInstance('RedirectorPage');
 		$page->write();
 		$page = DataObject::get_by_id('RedirectorPage', $pageID);
-		$this->assertTrue((bool)$page);
+		$this->assertInstanceOf('RedirectorPage', $page);
 		
 		$this->assertTrue((bool)DB::query("SELECT \"ID\" FROM \"VirtualPage\" WHERE \"ID\" = {$pageID}")->value(),
 			"VirtualPage row not found");
@@ -276,11 +276,11 @@ class DataObjectOnDeleteDecoratorTest extends SapphireTest {
 		DataObjectOnDeleteDecorator::set_clean_versions_table(true);
 		
 		$masterPage = DataObject::get_one('DataObjectOnDeleteDecoratorTest_MasterPage', "\"Title\" = 'MasterPage'");
-		$this->assertType('DataObjectOnDeleteDecoratorTest_MasterPage', $masterPage);
+		$this->assertInstanceOf('DataObjectOnDeleteDecoratorTest_MasterPage', $masterPage);
 		$masterPageID = $masterPage->ID;
 		
 		$subPage = DataObject::get_one('DataObjectOnDeleteDecoratorTest_SubPage', "\"Title\" = 'SubPage'");
-		$this->assertType('DataObjectOnDeleteDecoratorTest_SubPage', $subPage);
+		$this->assertInstanceOf('DataObjectOnDeleteDecoratorTest_SubPage', $subPage);
 		$subPageID = $subPage->ID;
 		$this->assertEquals($masterPage->ID, $subPage->MasterPageID, "Something is wrong with the fixture");
 		$subPage->doPublish();
@@ -334,11 +334,11 @@ class DataObjectOnDeleteDecoratorTest extends SapphireTest {
 		DataObjectOnDeleteDecorator::set_clean_versions_table(true);
 		
 		$masterPage = DataObject::get_one('DataObjectOnDeleteDecoratorTest_MasterPage', "\"Title\" = 'MasterPage'");
-		$this->assertType('DataObjectOnDeleteDecoratorTest_MasterPage', $masterPage);
+		$this->assertInstanceOf('DataObjectOnDeleteDecoratorTest_MasterPage', $masterPage);
 		$masterPageID = $masterPage->ID;
 		
 		$subPage = DataObject::get_one('DataObjectOnDeleteDecoratorTest_SubPage', "\"Title\" = 'SubPage'");
-		$this->assertType('DataObjectOnDeleteDecoratorTest_SubPage', $subPage);
+		$this->assertInstanceOf('DataObjectOnDeleteDecoratorTest_SubPage', $subPage);
 		$subPageID = $subPage->ID;
 		$this->assertEquals($masterPage->ID, $subPage->MasterPageID, "Something is wrong with the fixture");
 		$subPage->doPublish();

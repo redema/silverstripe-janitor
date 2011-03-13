@@ -39,7 +39,7 @@ class JanitorMemberTest extends FunctionalTest {
 	
 	public function testFieldScaffoldingForMemberEditPopup() {
 		$member = DataObject::get_one('Member');
-		$this->assertType('Member', $member);
+		$this->assertInstanceOf('Member', $member);
 		$this->logInAs($member);
 		$response = $this->get("admin/security/EditForm/field/Members/item/{$member->ID}/edit");
 		foreach (array('tab-Root_JanitorMemberPasswords', 'tab-Root_JanitorPageComments') as $HTMLID)
