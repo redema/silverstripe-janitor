@@ -45,6 +45,19 @@ class DataObjectOnDeleteDecoratorTest extends SapphireTest {
 	
 	public static $fixture_file = 'janitor/tests/DataObjectOnDeleteDecoratorTest.yml';
 	
+	private $translatableDefaultLocale = null;
+	
+	public function setUp() {
+		parent::setUp();
+		$this->translatableDefaultLocale = Translatable::default_locale();
+		Translatable::set_default_locale('en_US');
+	}
+	
+	public function tearDown() {
+		parent::tearDown();
+		Translatable::set_default_locale($this->translatableDefaultLocale);
+	}
+	
 	/**
 	 * Make sure that all tables are clean for the given $class,
 	 * which needs to be Versioned.

@@ -2,8 +2,10 @@
 DataObjectOnDeleteDecoratorTest_MasterPage:
 	Page1:
 		Title: MasterPage
+		Locale: en_US
 DataObjectOnDeleteDecoratorTest_SubPage:
 	Page2:
 		Title: SubPage
+		Locale: en_US
 		MasterPage: =>DataObjectOnDeleteDecoratorTest_MasterPage.Page1
 
