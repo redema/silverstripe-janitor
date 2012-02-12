@@ -45,7 +45,7 @@ class DevTasksSecurityTest extends FunctionalTest {
 		Director::set_dev_servers(array('example.com'));
 		$response = $this->get("dev/tasks/DataObjectRetroactiveCleanerTask");
 		
-		$selector = '#MemberLoginForm_LoginForm';
+		$selector = 'form[action="Security/LoginForm"]';
 		$this->assertTrue((bool)$this->cssParser()->getBySelector($selector),
 			'Non admin members can run DataObjectRetroactiveCleanerTask.');
 		
