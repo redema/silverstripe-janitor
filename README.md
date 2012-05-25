@@ -16,9 +16,9 @@ DataObjects.
 
 ## Maintainer Contact
 
-Charden Reklam (charden) <http://charden.se/>
+Redema AB <http://redema.se/>
 
-Author: Erik Edlund <erik@charden.se>
+Author: Erik Edlund <erik.edlund@redema.se>
 
 ## Requirements
 
